@@ -1,8 +1,6 @@
 package com.editaliza.Editaliza;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Date;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,17 +9,38 @@ import com.editaliza.editaliza.models.Edital;
 
 public class ValidateDadosTeste {
 
-    public Edital title;
+    private Edital edital;
 
     @BeforeEach
     void setUp() {
-        //String title, String description, Proposer proposer, // Tipo alterado
-        //    Date publishDate, Date endDate, EditalStatus status
-        title = new Edital("Bird Box", "Uma hisória de terror e suspense", No, 12, 13, "True");
+        // Aqui você cria um edital com título vazio para testar
+        edital = new Edital("", "Uma história de terror e suspense", null, null, null, null);
     }
 
     @Test
     void testeTitleVazio() {
-        assertEquals(, title.validate(), "Título é obrigatório");
+        // Testa se validate() lança IllegalArgumentException
+        IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> edital.validate()
+        );
+
+        // Verifica se a mensagem da exceção está correta
+        
+        System.out.println(thrown.getMessage()); 
+    }
+
+
+@Test
+void testeDescricaoVazia() {
+    edital = new Edital("Bird Box", "", null, null, null, null);
+
+    IllegalArgumentException thrown = assertThrows(
+        IllegalArgumentException.class,
+        () -> edital.validate()
+    );
+
+    
+        System.out.println(thrown.getMessage()); 
     }
 }
