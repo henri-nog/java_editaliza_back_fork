@@ -35,18 +35,15 @@ public class ArtistTest {
         Artist artist = new Artist("123", "João", "email@email.com", null,
                 "12345678900");
 
-        assertThrows(IllegalArgumentException.class, artist::validateCpf);
+        assertThrows(IllegalArgumentException.class, () -> artist.validateCpf());
     }
-
-    // -----------------------------
-    // TESTES DE EMAIL
-    // -----------------------------
 
     @Test
     @DisplayName("Testa um email válido")
     void testValidateEmailValido() {
         Artist artist = new Artist("123", "João", "teste@example.com", null, "52998224725");
-        assertDoesNotThrow(artist::validateEmail);
+
+        assertDoesNotThrow(() -> artist.validateEmail());
     }
 
     @Test
@@ -54,19 +51,15 @@ public class ArtistTest {
     void testValidateEmailInvalido() {
         Artist artist = new Artist("123", "João", "email-invalido", null, "52998224725");
 
-        assertThrows(IllegalArgumentException.class, artist::validateEmail);
+        assertThrows(IllegalArgumentException.class, () -> artist.validateEmail());
     }
-
-    // -----------------------------
-    // TESTES DE NOME
-    // -----------------------------
 
     @Test
     @DisplayName("Testa um nome válido")
     void testValidateNameValido() {
         Artist artist = new Artist("123", "Maria", "email@email.com", null, "52998224725");
 
-        assertDoesNotThrow(artist::validateName);
+        assertDoesNotThrow(() -> artist.validateName());
     }
 
     @Test
@@ -74,14 +67,11 @@ public class ArtistTest {
     void testValidateNameInvalido() {
         Artist artist = new Artist("123", "", "email@email.com", null, "52998224725");
 
-        assertThrows(IllegalArgumentException.class, artist::validateName);
+        assertThrows(IllegalArgumentException.class, () -> artist.validateName());
     }
 
-    // -----------------------------
-    // TESTES DE TAGS
-    // -----------------------------
-
     @Test
+    @DisplayName("Testa se adicionar addTag() funciona corretamente")
     void testAddTag() {
         Artist artist = new Artist();
         TagData tag = new TagData();
@@ -95,6 +85,7 @@ public class ArtistTest {
     }
 
     @Test
+    @DisplayName("Não permite adicionar a mesma tag duas vezes")
     void testAddTagDuplicadaNaoRepete() {
         Artist artist = new Artist();
         TagData tag = new TagData();
@@ -102,12 +93,13 @@ public class ArtistTest {
         tag.setName("Arte");
 
         artist.addTag(tag);
-        artist.addTag(tag); // não deve adicionar de novo
+        artist.addTag(tag); 
 
         assertEquals(1, artist.getListTags().size());
     }
 
     @Test
+    @DisplayName("Verifica se removeu uma tag")
     void testRemoveTag() {
         Artist artist = new Artist();
 
@@ -122,10 +114,6 @@ public class ArtistTest {
         assertEquals(0, artist.getListTags().size());
         assertFalse(artist.hasTag(10L));
     }
-
-    // -----------------------------
-    // TESTE getTagNames()
-    // -----------------------------
 
     @Test
     void testGetTagNames() {
@@ -142,10 +130,6 @@ public class ArtistTest {
         assertEquals(1, nomes.size());
         assertEquals("Fotografia", nomes.get(0));
     }
-
-    // -----------------------------
-    // TESTE getTagsByColor()
-    // -----------------------------
 
     @Test
     void testGetTagsByColor() {
