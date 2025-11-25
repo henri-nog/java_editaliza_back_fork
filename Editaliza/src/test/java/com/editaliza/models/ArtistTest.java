@@ -1,9 +1,13 @@
-package com.editaliza.editaliza.models;
+package com.editaliza.models;
 
-import org.junit.jupiter.api.Assertions;
+import com.editaliza.editaliza.models.Artist;
+import com.editaliza.editaliza.models.TagData;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
 public class ArtistTest {
@@ -12,9 +16,9 @@ public class ArtistTest {
     @DisplayName("Testa um CPF válido")
     void testCpfValido() {
         Artist artist = new Artist("123", "João", "email@email.com", null,
-                "52998224725"); // CPF válido
+                "52998224725"); 
 
-        Assertions.assertTrue(artist.isValidCpf());
+        assertTrue(artist.isValidCpf());
     }
 
     @Test
@@ -23,7 +27,7 @@ public class ArtistTest {
         Artist artist = new Artist("123", "João", "email@email.com", null,
                 "11111111111"); 
 
-        Assertions.assertFalse(artist.isValidCpf());
+        assertFalse(artist.isValidCpf());
     }
 
     @Test
@@ -31,7 +35,7 @@ public class ArtistTest {
         Artist artist = new Artist("123", "João", "email@email.com", null,
                 "12345678900");
 
-        Assertions.assertThrows(IllegalArgumentException.class, artist::validateCpf);
+        assertThrows(IllegalArgumentException.class, artist::validateCpf);
     }
 
     // -----------------------------
@@ -42,7 +46,7 @@ public class ArtistTest {
     @DisplayName("Testa um email válido")
     void testValidateEmailValido() {
         Artist artist = new Artist("123", "João", "teste@example.com", null, "52998224725");
-        Assertions.assertDoesNotThrow(artist::validateEmail);
+        assertDoesNotThrow(artist::validateEmail);
     }
 
     @Test
@@ -50,7 +54,7 @@ public class ArtistTest {
     void testValidateEmailInvalido() {
         Artist artist = new Artist("123", "João", "email-invalido", null, "52998224725");
 
-        Assertions.assertThrows(IllegalArgumentException.class, artist::validateEmail);
+        assertThrows(IllegalArgumentException.class, artist::validateEmail);
     }
 
     // -----------------------------
@@ -62,7 +66,7 @@ public class ArtistTest {
     void testValidateNameValido() {
         Artist artist = new Artist("123", "Maria", "email@email.com", null, "52998224725");
 
-        Assertions.assertDoesNotThrow(artist::validateName);
+        assertDoesNotThrow(artist::validateName);
     }
 
     @Test
@@ -70,7 +74,7 @@ public class ArtistTest {
     void testValidateNameInvalido() {
         Artist artist = new Artist("123", "", "email@email.com", null, "52998224725");
 
-        Assertions.assertThrows(IllegalArgumentException.class, artist::validateName);
+        assertThrows(IllegalArgumentException.class, artist::validateName);
     }
 
     // -----------------------------
@@ -86,8 +90,8 @@ public class ArtistTest {
 
         artist.addTag(tag);
 
-        Assertions.assertEquals(1, artist.getListTags().size());
-        Assertions.assertTrue(artist.hasTag(1L));
+        assertEquals(1, artist.getListTags().size());
+        assertTrue(artist.hasTag(1L));
     }
 
     @Test
@@ -100,7 +104,7 @@ public class ArtistTest {
         artist.addTag(tag);
         artist.addTag(tag); // não deve adicionar de novo
 
-        Assertions.assertEquals(1, artist.getListTags().size());
+        assertEquals(1, artist.getListTags().size());
     }
 
     @Test
@@ -115,8 +119,8 @@ public class ArtistTest {
 
         artist.removeTag(10L);
 
-        Assertions.assertEquals(0, artist.getListTags().size());
-        Assertions.assertFalse(artist.hasTag(10L));
+        assertEquals(0, artist.getListTags().size());
+        assertFalse(artist.hasTag(10L));
     }
 
     // -----------------------------
@@ -135,8 +139,8 @@ public class ArtistTest {
 
         List<String> nomes = artist.getTagNames();
 
-        Assertions.assertEquals(1, nomes.size());
-        Assertions.assertEquals("Fotografia", nomes.get(0));
+        assertEquals(1, nomes.size());
+        assertEquals("Fotografia", nomes.get(0));
     }
 
     // -----------------------------
@@ -165,6 +169,6 @@ public class ArtistTest {
 
         List<TagData> tagsRed = artist.getTagsByColor("red");
 
-        Assertions.assertEquals(2, tagsRed.size());
+        assertEquals(2, tagsRed.size());
     }
 }
