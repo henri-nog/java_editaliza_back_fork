@@ -3,14 +3,18 @@ package com.editaliza.models;
 import com.editaliza.editaliza.models.Artist;
 import com.editaliza.editaliza.models.TagData;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class ArtistTest {
     private static final Logger logger = LoggerFactory.getLogger(ArtistTest.class);
 
@@ -19,10 +23,20 @@ public class ArtistTest {
     void testCpfValido() {
         logger.debug("Iniciando teste de validação do CPF...");
         Artist artist = new Artist("123", "João", "email@email.com", null,
-                "52998224725"); 
+                "52998224725");
 
         assertTrue(artist.isValidCpf());
         logger.info("Teste finalizado.");
+
+
+
+//        try {
+//            Thread.sleep(5000);
+//        } catch (AssertionFailedError e) {
+//
+//        } catch (InterruptedException e) {
+//
+//        }
     }
 
     @Test
@@ -120,6 +134,7 @@ public class ArtistTest {
     }
 
     @Test
+    @DisplayName("Deve retornar lista com nomes das tags do artista")
     void testGetTagNames() {
         Artist artist = new Artist();
 
@@ -160,5 +175,3 @@ public class ArtistTest {
         assertEquals(2, tagsRed.size());
     }
 }
-
-
